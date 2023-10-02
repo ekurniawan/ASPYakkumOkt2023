@@ -1,0 +1,25 @@
+@model List<MyASPWeb.Models.Restaurant>
+
+@{
+    ViewData["Title"] = "Daftar Restaurant";
+}
+
+<h1>Daftar Restaurant</h1>
+<p>Username anda: @ViewData["Username"] dan Alamat: @ViewBag.Resto.Name</p>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
