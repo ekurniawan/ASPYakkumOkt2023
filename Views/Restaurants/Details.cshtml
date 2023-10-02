@@ -1,0 +1,11 @@
+@model MyASPWeb.Models.Restaurant
+
+@{
+    ViewData["Title"] = "Detail Restaurant";
+}
+
+<div>
+    <h1>Detail Restaurant</h1>
+    <p>Username: @ViewData["name"], address: @ViewBag.Address</p>
+    <p>ID: @Model.Id, Name: @Model.Name</p>
+</div>

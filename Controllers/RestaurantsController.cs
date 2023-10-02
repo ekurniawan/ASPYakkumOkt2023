@@ -26,6 +26,18 @@ namespace MyASPWeb.Controllers
             return View(models);
         }
 
+        public IActionResult Details(int id, string? name, string? address)
+        {
+            var model = _restaurantData.Get(id);
+            if (model == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["name"] = name;
+            ViewBag.Address = address;
+            return View(model);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -26,10 +26,11 @@ namespace MyASPWeb.Controllers
         }
 
         //[Route("[action]")]
-        public IActionResult Name()
+        [Route("yakkum/[controller]/[action]/{id?}")]
+        public IActionResult Name(int id)
         {
             _logger.LogInformation("Name() action invoked");
-            var names = new List<string> { "Erick", "Rufus", "Iroen" };
+            var names = new List<string> { "Erick " + id.ToString(), "Rufus", "Iroen" };
             return new JsonResult(names);
         }
 

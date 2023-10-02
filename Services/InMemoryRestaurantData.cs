@@ -19,6 +19,19 @@ namespace MyASPWeb.Services
             };
         }
 
+        public Restaurant Get(int id)
+        {
+            /*var restaurant  = (from r in _restaurants
+                              where r.Id == id
+                              select r).FirstOrDefault();*/
+            var restaurant = _restaurants.FirstOrDefault(r => r.Id == id);
+            if (restaurant == null)
+            {
+                throw new Exception("Restaurant not found!");
+            }
+            return restaurant;
+        }
+
         public IEnumerable<Restaurant> GetAll()
         {
             /*var restaurants = from r in _restaurants

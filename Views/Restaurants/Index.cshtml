@@ -12,12 +12,15 @@
             <tr>
                 <th>ID</th>
                 <th>Nama</th>
+                <th>&nbsp;</th>
             </tr>
             @foreach (var item in Model)
             {
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.Name</td>
+                    <td><a class="btn btn-primary btn-xs" asp-action="Details" 
+                        asp-route-id="@item.Id">details</a></td>
                 </tr>
             }
         </table>
