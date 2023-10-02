@@ -21,6 +21,9 @@ namespace MyASPWeb.Services
 
         public IEnumerable<Restaurant> GetAll()
         {
+            /*var restaurants = from r in _restaurants
+                              orderby r.Name
+                              select r;*/
             return _restaurants.OrderBy(r => r.Name);
         }
     }

@@ -1,7 +1,12 @@
+using MyASPWeb.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//DI Dependency Injection
+builder.Services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
 
 var app = builder.Build();
 
