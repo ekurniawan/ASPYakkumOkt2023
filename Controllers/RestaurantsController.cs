@@ -38,6 +38,19 @@ namespace MyASPWeb.Controllers
             return View(model);
         }
 
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Restaurant restaurant)
+        {
+            var newRestaurant = _restaurantData.Add(restaurant);
+            return RedirectToAction(nameof(Details), new { id = newRestaurant.Id });
+            //return RedirectToAction(nameof(Index));
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

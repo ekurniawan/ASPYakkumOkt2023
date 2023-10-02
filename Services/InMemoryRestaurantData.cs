@@ -19,6 +19,13 @@ namespace MyASPWeb.Services
             };
         }
 
+        public Restaurant Add(Restaurant newRestaurant)
+        {
+            _restaurants.Add(newRestaurant);
+            newRestaurant.Id = _restaurants.Max(r => r.Id) + 1;
+            return newRestaurant;
+        }
+
         public Restaurant Get(int id)
         {
             /*var restaurant  = (from r in _restaurants
