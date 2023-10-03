@@ -46,7 +46,24 @@ namespace MyASPWeb.Services
 
         public Customer Add(Customer newT)
         {
-            throw new NotImplementedException();
+            using (MySqlConnection conn = new MySqlConnection(GetConnStr()))
+            {
+                string sql = @"insert into Customers (FirstName, LastName, Address, City) 
+                                values (@FirstName, @LastName, @Address, @City)";
+                var param = new
+                {
+                    FirstName = newT.FirstName,
+                    LastName = newT.LastName,
+                    City = newT.City,
+                    Address = newT.Address
+                };
+                var result = conn.Execute(sql, param);
+                if (result == 0)
+                {
+                    throw new Exception("Data gagal ditambahkan!");
+                }
+                return newT;
+            }
         }
 
         public Customer Update(Customer updatedT)
