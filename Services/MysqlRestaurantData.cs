@@ -1,3 +1,4 @@
+using System.Data.SqlTypes;
 using MyASPWeb.Models;
 using MySql.Data.MySqlClient;
 
@@ -17,7 +18,24 @@ namespace MyASPWeb.Services
         }
         public Restaurant Add(Restaurant newT)
         {
-            throw new NotImplementedException();
+            using (MySqlConnection conn = new MySqlConnection(GetConnStr()))
+            {
+                string strSql = @"insert into Restaurants (Name) 
+                                   values (@Name);select last_insert_id()";
+                MySqlCommand cmd = new MySqlCommand(strSql, conn);
+                cmd.Parameters.AddWithValue("@Name", newT.Name);
+                try
+                {
+                    conn.Open();
+                    var newId = Convert.ToInt32(cmd.ExecuteScalar());
+                    newT.Id = newId;
+                    return newT;
+                }
+                catch (MySqlException sqlEx)
+                {
+                    throw new Exception(sqlEx.Message);
+                }
+            }
         }
 
         public Restaurant Delete(int id)
