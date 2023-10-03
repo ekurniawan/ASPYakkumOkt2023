@@ -1,11 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using MyASPWeb.Models;
 
 namespace MyASPWeb.Services
 {
-    public interface IRestaurantData
+    public interface IRestaurantData : ICrud<Restaurant>
     {
-        IEnumerable<Restaurant> GetAll();
-        Restaurant Get(int id);
-        Restaurant Add(Restaurant newRestaurant);
+        IEnumerable<Restaurant> GetByName(string name);
     }
 }

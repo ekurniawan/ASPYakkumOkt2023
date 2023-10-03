@@ -26,6 +26,11 @@ namespace MyASPWeb.Services
             return newRestaurant;
         }
 
+        public Restaurant Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Restaurant Get(int id)
         {
             /*var restaurant  = (from r in _restaurants
@@ -45,6 +50,21 @@ namespace MyASPWeb.Services
                               orderby r.Name
                               select r;*/
             return _restaurants.OrderBy(r => r.Name);
+        }
+
+        public IEnumerable<Restaurant> GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Restaurant Update(Restaurant updatedT)
+        {
+            var updatedRestaurant = _restaurants.FirstOrDefault(r => r.Id == updatedT.Id);
+            if (updatedRestaurant != null)
+            {
+                updatedRestaurant.Name = updatedT.Name;
+            }
+            return updatedRestaurant;
         }
     }
 }
