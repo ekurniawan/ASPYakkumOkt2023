@@ -28,7 +28,12 @@ namespace MyASPWeb.Services
 
         public Restaurant Delete(int id)
         {
-            throw new NotImplementedException();
+            var restaurant = Get(id);
+            if (restaurant != null)
+            {
+                _restaurants.Remove(restaurant);
+            }
+            return restaurant;
         }
 
         public Restaurant Get(int id)
