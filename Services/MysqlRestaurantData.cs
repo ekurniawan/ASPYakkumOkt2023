@@ -3,42 +3,65 @@ using MySql.Data.MySqlClient;
 
 namespace MyASPWeb.Services
 {
-    public class MysqlRestaurantData : IRestaurantData
+    public class MysqlRestaurantData : ICustomer
     {
         private readonly IConfiguration _config;
         public MysqlRestaurantData(IConfiguration config)
         {
             _config = config;
         }
-        public Restaurant Add(Restaurant newT)
+
+        private string GetConnStr()
         {
-            throw new NotImplementedException();
+            return _config.GetConnectionString("DefaultConnection");
         }
 
-        public Restaurant Delete(int id)
+        IEnumerable<Customer> ICrud<Customer>.GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public Restaurant Get(int id)
-        {
-            using (MySqlConnection conn = new MySqlConnection())
+            List<Customer> customers = new List<Customer>();
+            using (MySqlConnection conn = new MySqlConnection(GetConnStr()))
             {
-
+                conn.Open();
+                string sql = @"select * from Customers order by FirstName asc";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        customers.Add(new Customer
+                        {
+                            CustomerID = Convert.ToInt32(dr["CustomerID"]),
+                            FirstName = (string)dr["FirstName"],
+                            LastName = (string)dr["LastName"],
+                            Address = (string)dr["Address"],
+                            City = (string)dr["City"]
+                        });
+                    }
+                }
+                dr.Close();
+                cmd.Dispose();
+                conn.Close();
             }
+            return customers;
         }
 
-        public IEnumerable<Restaurant> GetAll()
+        Customer ICrud<Customer>.Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Restaurant> GetByName(string name)
+        public Customer Add(Customer newT)
         {
             throw new NotImplementedException();
         }
 
-        public Restaurant Update(Restaurant updatedT)
+        public Customer Update(Customer updatedT)
+        {
+            throw new NotImplementedException();
+        }
+
+        Customer ICrud<Customer>.Delete(int id)
         {
             throw new NotImplementedException();
         }
