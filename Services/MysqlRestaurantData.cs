@@ -40,7 +40,28 @@ namespace MyASPWeb.Services
 
         public Restaurant Delete(int id)
         {
-            throw new NotImplementedException();
+            using (MySqlConnection conn = new MySqlConnection(GetConnStr()))
+            {
+                string strSql = @"delete from Restaurants where Id=@Id";
+                MySqlCommand cmd = new MySqlCommand(strSql, conn);
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                try
+                {
+                    conn.Open();
+                    int result = cmd.ExecuteNonQuery();
+                    if (result != 1)
+                    {
+                        throw new Exception("Data tidak ditemukan!");
+                    }
+
+                    return new Restaurant { Id = id };
+                }
+                catch (MySqlException sqlEx)
+                {
+                    throw new Exception(sqlEx.Message);
+                }
+            }
         }
 
         public Restaurant Get(int id)
@@ -98,7 +119,28 @@ namespace MyASPWeb.Services
 
         public Restaurant Update(Restaurant updatedT)
         {
-            throw new NotImplementedException();
+            using (MySqlConnection conn = new MySqlConnection(GetConnStr()))
+            {
+                string strSql = @"update Restaurants set Name=@Name where Id=@Id";
+                MySqlCommand cmd = new MySqlCommand(strSql, conn);
+                cmd.Parameters.AddWithValue("@Name", updatedT.Name);
+                cmd.Parameters.AddWithValue("@Id", updatedT.Id);
+                try
+                {
+                    conn.Open();
+                    int result = cmd.ExecuteNonQuery();
+                    if (result != 1)
+                    {
+                        throw new Exception("Data tidak ditemukan!");
+                    }
+
+                    return updatedT;
+                }
+                catch (MySqlException sqlEx)
+                {
+                    throw new Exception(sqlEx.Message);
+                }
+            }
         }
     }
 }

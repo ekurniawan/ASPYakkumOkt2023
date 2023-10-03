@@ -30,7 +30,18 @@ namespace MyASPWeb.Services
 
         public Customer Get(int id)
         {
-            throw new NotImplementedException();
+            using (MySqlConnection conn = new MySqlConnection(GetConnStr()))
+            {
+                conn.Open();
+                string sql = @"select * from Customers where Id=@Id";
+                var param = new { Id = id };
+                var customer = conn.QueryFirstOrDefault<Customer>(sql, param);
+                if (customer == null)
+                {
+                    throw new Exception("Data tidak ditemukan!");
+                }
+                return customer;
+            }
         }
 
         public Customer Add(Customer newT)
