@@ -52,8 +52,9 @@ namespace MyASPWeb.Controllers
         public IActionResult Create(Restaurant restaurant)
         {
             var newRestaurant = _restaurantData.Add(restaurant);
-            return RedirectToAction(nameof(Details), new { id = newRestaurant.Id });
-            //return RedirectToAction(nameof(Index));
+            TempData["Message"] = $"{newRestaurant.Name} has been added!";
+            //return RedirectToAction(nameof(Details), new { id = newRestaurant.Id });
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Edit(int id)
