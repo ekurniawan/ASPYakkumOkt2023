@@ -1,4 +1,4 @@
-@model IEnumerable<MyASPWeb.Models.Restaurant>
+@model MyASPWeb.ViewModels.RestaurantViewModel
 
 @{
     //Layout = "_LayoutSBAdmin";
@@ -28,7 +28,7 @@
                         <th>&nbsp;</th>
                         <td>&nbsp;</td>
                     </tr>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Restaurants)
                     {
                         <tr>
                             <td>@item.Id</td>

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyASPWeb.Models;
 using MyASPWeb.Services;
+using MyASPWeb.ViewModels;
 
 
 namespace MyASPWeb.Controllers
@@ -24,11 +25,16 @@ namespace MyASPWeb.Controllers
                 ViewBag.Message = TempData["Message"];
             }
 
+            //ViewModel
+            var viewModel = new RestaurantViewModel();
+            viewModel.Restaurants = _restaurantData.GetAll();
+            viewModel.Username = "Erick Kurniawan";
+
             var models = _restaurantData.GetAll();
             ViewData["Username"] = "Erick Kurniawan";
             ViewBag.Resto = new Restaurant { Id = 11, Name = "Bakso Cakman" };
             //var model = new Restaurant { Id = 1, Name = "Bakso Bethesda" };
-            return View(models);
+            return View(viewModel);
         }
 
         public IActionResult Details(int id, string? name, string? address)
@@ -49,8 +55,18 @@ namespace MyASPWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Restaurant restaurant)
+        public IActionResult Create(CreateRestaurantViewModel createResViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            //pindah dari viewmodel ke model
+            var restaurant = new Restaurant()
+            {
+                Name = createResViewModel.Name
+            };
+
             var newRestaurant = _restaurantData.Add(restaurant);
             TempData["Message"] = $"{newRestaurant.Name} has been added!";
             //return RedirectToAction(nameof(Details), new { id = newRestaurant.Id });

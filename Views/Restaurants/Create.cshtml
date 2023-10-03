@@ -1,4 +1,4 @@
-@model MyASPWeb.Models.Restaurant
+@model MyASPWeb.ViewModels.CreateRestaurantViewModel
 
 @{
     ViewData["Title"] = "Create Restaurant";
@@ -10,7 +10,9 @@
         <form asp-action="Create">
             <div class="form-group">
                 <label for="Name" class="control-label">Name</label>
-                <input name="Name" type="text" class="form-control" /><br />
+                <input name="Name" type="text" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+                <br />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -18,3 +20,9 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        Html.RenderPartial("_ValidationScriptsPartial");
+    }
+}
