@@ -85,6 +85,14 @@ namespace MyASPWeb.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult DeletePost(int id)
+        {
+            var deletedRestaurant = _restaurantData.Delete(id);
+            TempData["Message"] = $"{deletedRestaurant.Name} has been deleted!";
+            return RedirectToAction(nameof(Index));
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
