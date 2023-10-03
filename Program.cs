@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //DI Dependency Injection
-builder.Services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
+//builder.Services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
+builder.Services.AddScoped<IRestaurantData, MysqlRestaurantData>();
 
 var app = builder.Build();
 

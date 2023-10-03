@@ -1,9 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using MyASPWeb.Models;
 using MySql.Data.MySqlClient;
 
 namespace MyASPWeb.Services
 {
-    public class MysqlRestaurantData : ICustomer
+    public class MysqlRestaurantData : IRestaurantData
     {
         private readonly IConfiguration _config;
         public MysqlRestaurantData(IConfiguration config)
@@ -15,53 +19,70 @@ namespace MyASPWeb.Services
         {
             return _config.GetConnectionString("DefaultConnection");
         }
-
-        IEnumerable<Customer> ICrud<Customer>.GetAll()
+        public Restaurant Add(Restaurant newT)
         {
-            List<Customer> customers = new List<Customer>();
+            throw new NotImplementedException();
+        }
+
+        public Restaurant Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Restaurant Get(int id)
+        {
+            Restaurant restaurant = new Restaurant();
             using (MySqlConnection conn = new MySqlConnection(GetConnStr()))
             {
                 conn.Open();
-                string sql = @"select * from Customers order by FirstName asc";
+                string sql = @"select * from Restaurants where Id=@Id";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    dr.Read();
+                    restaurant = new Restaurant
+                    {
+                        Id = Convert.ToInt32(dr["Id"]),
+                        Name = (string)dr["Name"],
+                    };
+                }
+            }
+            return restaurant;
+        }
+
+        public IEnumerable<Restaurant> GetAll()
+        {
+            List<Restaurant> restaurants = new List<Restaurant>();
+            using (MySqlConnection conn = new MySqlConnection(GetConnStr()))
+            {
+                conn.Open();
+                string sql = @"select * from Restaurants order by Name asc";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader dr = cmd.ExecuteReader();
                 if (dr.HasRows)
                 {
                     while (dr.Read())
                     {
-                        customers.Add(new Customer
+                        restaurants.Add(new Restaurant
                         {
-                            CustomerID = Convert.ToInt32(dr["CustomerID"]),
-                            FirstName = (string)dr["FirstName"],
-                            LastName = (string)dr["LastName"],
-                            Address = (string)dr["Address"],
-                            City = (string)dr["City"]
+                            Id = Convert.ToInt32(dr["Id"]),
+                            Name = (string)dr["Name"],
                         });
                     }
                 }
-                dr.Close();
-                cmd.Dispose();
-                conn.Close();
             }
-            return customers;
+            return restaurants;
         }
 
-        Customer ICrud<Customer>.Get(int id)
+        public IEnumerable<Restaurant> GetByName(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Customer Add(Customer newT)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Customer Update(Customer updatedT)
-        {
-            throw new NotImplementedException();
-        }
-
-        Customer ICrud<Customer>.Delete(int id)
+        public Restaurant Update(Restaurant updatedT)
         {
             throw new NotImplementedException();
         }
