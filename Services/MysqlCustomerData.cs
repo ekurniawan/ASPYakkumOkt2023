@@ -1,5 +1,6 @@
 using MyASPWeb.Models;
 using MySql.Data.MySqlClient;
+using Dapper;
 
 namespace MyASPWeb.Services
 {
@@ -16,34 +17,18 @@ namespace MyASPWeb.Services
             return _config.GetConnectionString("DefaultConnection");
         }
 
-        IEnumerable<Customer> ICrud<Customer>.GetAll()
+        public IEnumerable<Customer> GetAll()
         {
-            List<Customer> customers = new List<Customer>();
             using (MySqlConnection conn = new MySqlConnection(GetConnStr()))
             {
                 conn.Open();
                 string sql = @"select * from Customers order by FirstName asc";
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataReader dr = cmd.ExecuteReader();
-                if (dr.HasRows)
-                {
-                    while (dr.Read())
-                    {
-                        customers.Add(new Customer
-                        {
-                            CustomerID = Convert.ToInt32(dr["CustomerID"]),
-                            FirstName = (string)dr["FirstName"],
-                            LastName = (string)dr["LastName"],
-                            Address = (string)dr["Address"],
-                            City = (string)dr["City"]
-                        });
-                    }
-                }
+                var customers = conn.Query<Customer>(sql);
+                return customers;
             }
-            return customers;
         }
 
-        Customer ICrud<Customer>.Get(int id)
+        public Customer Get(int id)
         {
             throw new NotImplementedException();
         }
@@ -58,7 +43,7 @@ namespace MyASPWeb.Services
             throw new NotImplementedException();
         }
 
-        Customer ICrud<Customer>.Delete(int id)
+        public Customer Delete(int id)
         {
             throw new NotImplementedException();
         }
