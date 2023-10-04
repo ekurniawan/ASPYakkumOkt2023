@@ -10,5 +10,7 @@ namespace MyASPWeb.Data
 
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<RestaurantMenu> RestaurantMenus { get; set; }
+        public DbSet<RestaurantType> RestaurantTypes { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace MyASPWeb.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrations : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace MyASPWeb.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "RestaurantType",
+                name: "RestaurantTypes",
                 columns: table => new
                 {
                     RestaurantTypeId = table.Column<int>(type: "int", nullable: false)
@@ -24,7 +24,7 @@ namespace MyASPWeb.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RestaurantType", x => x.RestaurantTypeId);
+                    table.PrimaryKey("PK_RestaurantTypes", x => x.RestaurantTypeId);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -41,9 +41,9 @@ namespace MyASPWeb.Migrations
                 {
                     table.PrimaryKey("PK_Restaurants", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Restaurants_RestaurantType_RestaurantTypeId",
+                        name: "FK_Restaurants_RestaurantTypes_RestaurantTypeId",
                         column: x => x.RestaurantTypeId,
-                        principalTable: "RestaurantType",
+                        principalTable: "RestaurantTypes",
                         principalColumn: "RestaurantTypeId",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -58,7 +58,6 @@ namespace MyASPWeb.Migrations
                     FirstName = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     LastName = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     Address = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    Phone = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     City = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     RestaurantId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -75,7 +74,7 @@ namespace MyASPWeb.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "RestaurantMenu",
+                name: "RestaurantMenus",
                 columns: table => new
                 {
                     RestaurantMenuId = table.Column<int>(type: "int", nullable: false)
@@ -85,9 +84,9 @@ namespace MyASPWeb.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RestaurantMenu", x => x.RestaurantMenuId);
+                    table.PrimaryKey("PK_RestaurantMenus", x => x.RestaurantMenuId);
                     table.ForeignKey(
-                        name: "FK_RestaurantMenu_Restaurants_RestaurantId",
+                        name: "FK_RestaurantMenus_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
                         principalColumn: "Id",
@@ -101,8 +100,8 @@ namespace MyASPWeb.Migrations
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RestaurantMenu_RestaurantId",
-                table: "RestaurantMenu",
+                name: "IX_RestaurantMenus_RestaurantId",
+                table: "RestaurantMenus",
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
@@ -118,13 +117,13 @@ namespace MyASPWeb.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "RestaurantMenu");
+                name: "RestaurantMenus");
 
             migrationBuilder.DropTable(
                 name: "Restaurants");
 
             migrationBuilder.DropTable(
-                name: "RestaurantType");
+                name: "RestaurantTypes");
         }
     }
 }

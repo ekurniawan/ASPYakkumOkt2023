@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using MyASPWeb.Data;
 using MyASPWeb.Models;
 using ZstdSharp;
@@ -51,6 +52,12 @@ namespace MyASPWeb.Services
         public IEnumerable<Restaurant> GetByName(string name)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Restaurant> RestaurantWithType()
+        {
+            var restaurants = _db.Restaurants.Include(r => r.RestaurantType).OrderBy(r => r.Name);
+            return restaurants;
         }
 
         public Restaurant Update(Restaurant updatedT)

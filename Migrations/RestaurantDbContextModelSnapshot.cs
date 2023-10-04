@@ -92,7 +92,7 @@ namespace MyASPWeb.Migrations
 
                     b.HasIndex("RestaurantId");
 
-                    b.ToTable("RestaurantMenu");
+                    b.ToTable("RestaurantMenus");
                 });
 
             modelBuilder.Entity("MyASPWeb.Models.RestaurantType", b =>
@@ -108,7 +108,7 @@ namespace MyASPWeb.Migrations
 
                     b.HasKey("RestaurantTypeId");
 
-                    b.ToTable("RestaurantType");
+                    b.ToTable("RestaurantTypes");
                 });
 
             modelBuilder.Entity("MyASPWeb.Models.Customer", b =>

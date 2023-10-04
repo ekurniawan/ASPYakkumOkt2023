@@ -142,5 +142,10 @@ namespace MyASPWeb.Services
                 }
             }
         }
+
+        public IEnumerable<Restaurant> RestaurantWithType()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

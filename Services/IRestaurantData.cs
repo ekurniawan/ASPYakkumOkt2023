@@ -9,5 +9,6 @@ namespace MyASPWeb.Services
     public interface IRestaurantData : ICrud<Restaurant>
     {
         IEnumerable<Restaurant> GetByName(string name);
+        IEnumerable<Restaurant> RestaurantWithType();
     }
 }

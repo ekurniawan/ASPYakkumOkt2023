@@ -18,6 +18,22 @@ namespace MyASPWeb.Controllers
             _restaurantData = restaurantData;
         }
 
+        public IActionResult RestaurantWithType()
+        {
+            List<RestaurantWithTypeVM> models = new List<RestaurantWithTypeVM>();
+            var restaurants = _restaurantData.RestaurantWithType();
+            foreach (var item in restaurants)
+            {
+                models.Add(new RestaurantWithTypeVM
+                {
+                    RestaurantId = item.Id,
+                    RestaurantName = item.Name,
+                    RestaurantTypeName = item.RestaurantType.TypeName
+                });
+            }
+            return new JsonResult(models);
+        }
+
         public IActionResult Index()
         {
             if (TempData["Message"] != null)

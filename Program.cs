@@ -21,6 +21,7 @@ builder.Services.AddDbContext<RestaurantDbContext>(options =>
 builder.Services.AddScoped<IRestaurantData, MysqlEFRestaurantData>();
 
 builder.Services.AddScoped<ICustomer, MysqlEFCustomerData>();
+builder.Services.AddScoped<IRestaurantMenu, MysqlEFRestaurantMenu>();
 
 var app = builder.Build();
 

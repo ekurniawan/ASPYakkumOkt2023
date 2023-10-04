@@ -62,6 +62,11 @@ namespace MyASPWeb.Services
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Restaurant> RestaurantWithType()
+        {
+            throw new NotImplementedException();
+        }
+
         public Restaurant Update(Restaurant updatedT)
         {
             var updatedRestaurant = _restaurants.FirstOrDefault(r => r.Id == updatedT.Id);
