@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyASPWeb.Data;
 using MyASPWeb.Services;
@@ -13,6 +14,15 @@ builder.Services.AddDbContext<RestaurantDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("MysqlDbFirstConnection"));
 });
 
+//ASP Identity
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequiredLength = 6;
+    options.Password.RequireDigit = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+}).AddEntityFrameworkStores<RestaurantDbContext>();
+
 //DI Dependency Injection
 //builder.Services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
 
@@ -22,6 +32,8 @@ builder.Services.AddScoped<IRestaurantData, MysqlEFRestaurantData>();
 
 builder.Services.AddScoped<ICustomer, MysqlEFCustomerData>();
 builder.Services.AddScoped<IRestaurantMenu, MysqlEFRestaurantMenu>();
+
+
 
 var app = builder.Build();
 
