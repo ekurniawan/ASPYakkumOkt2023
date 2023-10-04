@@ -8,6 +8,6 @@ namespace MyASPWeb.Services
 {
     public interface ICustomer : ICrud<Customer>
     {
-
+        IEnumerable<Customer> GetAllWithRestaurant();
     }
 }

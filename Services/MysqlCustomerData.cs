@@ -75,5 +75,10 @@ namespace MyASPWeb.Services
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Customer> GetAllWithRestaurant()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

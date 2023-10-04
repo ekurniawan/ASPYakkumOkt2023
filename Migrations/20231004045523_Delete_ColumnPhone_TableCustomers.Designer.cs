@@ -10,8 +10,8 @@ using MyASPWeb.Data;
 namespace MyASPWeb.Migrations
 {
     [DbContext(typeof(RestaurantDbContext))]
-    [Migration("20231004040537_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20231004045523_Delete_ColumnPhone_TableCustomers")]
+    partial class Delete_ColumnPhone_TableCustomers
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,9 +67,51 @@ namespace MyASPWeb.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
 
+                    b.Property<int>("RestaurantTypeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("RestaurantTypeId");
+
                     b.ToTable("Restaurants");
+                });
+
+            modelBuilder.Entity("MyASPWeb.Models.RestaurantMenu", b =>
+                {
+                    b.Property<int>("RestaurantMenuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("MenuName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RestaurantMenuId");
+
+                    b.HasIndex("RestaurantId");
+
+                    b.ToTable("RestaurantMenu");
+                });
+
+            modelBuilder.Entity("MyASPWeb.Models.RestaurantType", b =>
+                {
+                    b.Property<int>("RestaurantTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("RestaurantTypeId");
+
+                    b.ToTable("RestaurantType");
                 });
 
             modelBuilder.Entity("MyASPWeb.Models.Customer", b =>
@@ -85,7 +127,36 @@ namespace MyASPWeb.Migrations
 
             modelBuilder.Entity("MyASPWeb.Models.Restaurant", b =>
                 {
+                    b.HasOne("MyASPWeb.Models.RestaurantType", "RestaurantType")
+                        .WithMany("Restaurants")
+                        .HasForeignKey("RestaurantTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RestaurantType");
+                });
+
+            modelBuilder.Entity("MyASPWeb.Models.RestaurantMenu", b =>
+                {
+                    b.HasOne("MyASPWeb.Models.Restaurant", "Restaurant")
+                        .WithMany("RestaurantMenus")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
+                });
+
+            modelBuilder.Entity("MyASPWeb.Models.Restaurant", b =>
+                {
                     b.Navigation("Customers");
+
+                    b.Navigation("RestaurantMenus");
+                });
+
+            modelBuilder.Entity("MyASPWeb.Models.RestaurantType", b =>
+                {
+                    b.Navigation("Restaurants");
                 });
 #pragma warning restore 612, 618
         }

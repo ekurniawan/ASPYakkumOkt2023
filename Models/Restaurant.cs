@@ -8,6 +8,10 @@ namespace MyASPWeb.Models
 
         [StringLength(255)]
         public string? Name { get; set; }
+
+        public RestaurantType RestaurantType { get; set; }
         public IEnumerable<Customer> Customers { get; set; }
+        public IEnumerable<RestaurantMenu> RestaurantMenus { get; set; }
+
     }
 }

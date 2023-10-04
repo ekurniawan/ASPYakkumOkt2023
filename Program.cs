@@ -20,7 +20,7 @@ builder.Services.AddDbContext<RestaurantDbContext>(options =>
 //builder.Services.AddScoped<IRestaurantData, SqlServerRestaurantData>();
 builder.Services.AddScoped<IRestaurantData, MysqlEFRestaurantData>();
 
-builder.Services.AddScoped<ICustomer, MysqlCustomerData>();
+builder.Services.AddScoped<ICustomer, MysqlEFCustomerData>();
 
 var app = builder.Build();
 

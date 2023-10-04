@@ -20,7 +20,6 @@ namespace MyASPWeb.Models
         [StringLength(255)]
         public string Address { get; set; }
 
-
         [StringLength(255)]
         public string City { get; set; }
         public Restaurant Restaurant { get; set; }
