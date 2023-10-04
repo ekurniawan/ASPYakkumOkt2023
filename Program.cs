@@ -17,7 +17,9 @@ builder.Services.AddDbContext<RestaurantDbContext>(options =>
 //builder.Services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
 
 //builder.Services.AddScoped<IRestaurantData, MysqlRestaurantData>();
-builder.Services.AddScoped<IRestaurantData, SqlServerRestaurantData>();
+//builder.Services.AddScoped<IRestaurantData, SqlServerRestaurantData>();
+builder.Services.AddScoped<IRestaurantData, MysqlEFRestaurantData>();
+
 builder.Services.AddScoped<ICustomer, MysqlCustomerData>();
 
 var app = builder.Build();
