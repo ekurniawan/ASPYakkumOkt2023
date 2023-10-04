@@ -10,7 +10,7 @@ using MyASPWeb.Data;
 namespace MyASPWeb.Migrations
 {
     [DbContext(typeof(RestaurantDbContext))]
-    [Migration("20231004034733_InitialMigrations")]
+    [Migration("20231004040537_InitialMigrations")]
     partial class InitialMigrations
     {
         /// <inheritdoc />
@@ -29,22 +29,23 @@ namespace MyASPWeb.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
@@ -63,7 +64,8 @@ namespace MyASPWeb.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 

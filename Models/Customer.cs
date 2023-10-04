@@ -11,11 +11,17 @@ namespace MyASPWeb.Models
         [Key]
         public int CustomerID { get; set; }
 
-        //FK dari tabel Restaurant
-        public int Id { get; set; }
+        [StringLength(255)]
         public string FirstName { get; set; }
+
+        [StringLength(255)]
         public string LastName { get; set; }
+
+        [StringLength(255)]
         public string Address { get; set; }
+
+
+        [StringLength(255)]
         public string City { get; set; }
         public Restaurant Restaurant { get; set; }
     }

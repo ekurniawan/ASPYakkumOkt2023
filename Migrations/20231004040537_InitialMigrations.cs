@@ -20,7 +20,7 @@ namespace MyASPWeb.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
+                    Name = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -34,11 +34,10 @@ namespace MyASPWeb.Migrations
                 {
                     CustomerID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "longtext", nullable: false),
-                    LastName = table.Column<string>(type: "longtext", nullable: false),
-                    Address = table.Column<string>(type: "longtext", nullable: false),
-                    City = table.Column<string>(type: "longtext", nullable: false),
+                    FirstName = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    LastName = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Address = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    City = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     RestaurantId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
