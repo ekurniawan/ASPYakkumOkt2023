@@ -1,9 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using MyASPWeb.Data;
 using MyASPWeb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//mendaftarkan penggunaan EF
+builder.Services.AddDbContext<RestaurantDbContext>(options =>
+{
+    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 //DI Dependency Injection
 //builder.Services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
