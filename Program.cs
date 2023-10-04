@@ -10,7 +10,7 @@ builder.Services.AddControllersWithViews();
 //mendaftarkan penggunaan EF
 builder.Services.AddDbContext<RestaurantDbContext>(options =>
 {
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseMySQL(builder.Configuration.GetConnectionString("MysqlDbFirstConnection"));
 });
 
 //DI Dependency Injection
