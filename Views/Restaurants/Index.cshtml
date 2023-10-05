@@ -4,42 +4,55 @@
     //Layout = "_LayoutSBAdmin";
     ViewData["Title"] = "Daftar Restaurant";
 }
-
 <div class="row">
-    <div class="col-lg-10">
-        <!-- Default Card Example -->
-        <div class="card mb-6">
-            <div class="card-header">
-                Daftar Restaurant
-            </div>
-            <div class="card-body">
-                <a asp-action="Create" class="btn btn-primary">Tambah</a><br /><br />
-                <p>Username anda: @ViewData["Username"] dan Alamat: @ViewBag.Resto.Name</p>
-
-                @if (ViewBag.Message != null)
-                {
-                    <div class="alert alert-success">@ViewBag.Message</div>
-                    <br />
-                }
-                <table class="table table-striped">
-                    <tr>
-                        <th>ID</th>
-                        <th>Nama</th>
-                        <th>&nbsp;</th>
-                        <td>&nbsp;</td>
-                    </tr>
-                    @foreach (var item in Model.Restaurants)
-                    {
-                        <tr>
-                            <td>@item.Id</td>
-                            <td>@item.Name</td>
-                            <td><a class="btn btn-warning btn-xs" asp-action="Edit" asp-route-id="@item.Id">edit</a></td>
-                            <td><a class="btn btn-danger btn-xs" asp-action="Delete" asp-route-id="@item.Id">delete</a></td>
-                            <td><a class="btn btn-primary btn-xs" asp-action="Details" asp-route-id="@item.Id">details</a>
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
-        </div>
+    <div class="col-md-6">
+        <ejs-grid id="Grid" dataSource="@ViewBag.DataSource" allowPaging="true">
+            <e-grid-pagesettings pageSizes="true">
+            </e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column field="Id" headerText="Restaurant ID" textAlign="Right" width="120"></e-grid-column>
+                <e-grid-column field="Name" headerText="Restaurant Name" width="150"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
     </div>
+</div>
+
+
+@*<div class="row">
+<div class="col-lg-10">
+<!-- Default Card Example -->
+<div class="card mb-6">
+<div class="card-header">
+Daftar Restaurant
+</div>
+<div class="card-body">
+<a asp-action="Create" class="btn btn-primary">Tambah</a><br /><br />
+<p>Username anda: @ViewData["Username"] dan Alamat: @ViewBag.Resto.Name</p>
+
+@if (ViewBag.Message != null)
+{
+<div class="alert alert-success">@ViewBag.Message</div>
+<br />
+}
+<table class="table table-striped">
+<tr>
+<th>ID</th>
+<th>Nama</th>
+<th>&nbsp;</th>
+<td>&nbsp;</td>
+</tr>
+@foreach (var item in Model.Restaurants)
+{
+<tr>
+<td>@item.Id</td>
+<td>@item.Name</td>
+<td><a class="btn btn-warning btn-xs" asp-action="Edit" asp-route-id="@item.Id">edit</a></td>
+<td><a class="btn btn-danger btn-xs" asp-action="Delete" asp-route-id="@item.Id">delete</a></td>
+<td><a class="btn btn-primary btn-xs" asp-action="Details" asp-route-id="@item.Id">details</a>
+</td>
+</tr>
+}
+</table>
+</div>
+</div>
+</div>*@

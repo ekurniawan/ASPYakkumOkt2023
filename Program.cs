@@ -28,14 +28,15 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 
 //builder.Services.AddScoped<IRestaurantData, MysqlRestaurantData>();
 //builder.Services.AddScoped<IRestaurantData, SqlServerRestaurantData>();
-builder.Services.AddScoped<IRestaurantData, MysqlEFRestaurantData>();
-
+builder.Services.AddScoped<IRestaurantData, MysqlRestaurantData>();
 builder.Services.AddScoped<ICustomer, MysqlEFCustomerData>();
 builder.Services.AddScoped<IRestaurantMenu, MysqlEFRestaurantMenu>();
 
 
 
 var app = builder.Build();
+
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

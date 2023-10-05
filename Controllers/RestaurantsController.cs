@@ -36,7 +36,7 @@ namespace MyASPWeb.Controllers
 
         public IActionResult Index()
         {
-            if (TempData["Message"] != null)
+            /*if (TempData["Message"] != null)
             {
                 ViewBag.Message = TempData["Message"];
             }
@@ -50,7 +50,10 @@ namespace MyASPWeb.Controllers
             ViewData["Username"] = "Erick Kurniawan";
             ViewBag.Resto = new Restaurant { Id = 11, Name = "Bakso Cakman" };
             //var model = new Restaurant { Id = 1, Name = "Bakso Bethesda" };
-            return View(viewModel);
+            return View(viewModel);*/
+            var restaurants = _restaurantData.GetAll();
+            ViewBag.DataSource = restaurants;
+            return View();
         }
 
         public IActionResult Details(int id, string? name, string? address)
